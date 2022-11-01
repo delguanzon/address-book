@@ -21,6 +21,14 @@ AddressBook.prototype.findContact = function(id) {
   return false;
 };
 
+AddressBook.prototype.updateContact = function(id, editFirstName){
+  if(this.contacts[id] === undefined) {
+    return false;
+  } else if ( this.contacts[id] !== undefined) {
+    this.contacts[id].firstName = editFirstName; 
+  }
+}
+
 AddressBook.prototype.deleteContact = function(id) {
   if (this.contacts[id] === undefined) {
     return false;
@@ -73,6 +81,12 @@ function handleFormSubmission(e){
   displayContacts(addressBook);
 }
 
+function handleUpdate(e){
+  let editFirstName = document.getElementById("first-name").value;
+  addressBook.updateContact(e.target.id,editFirstName);
+  
+  console.log("editFirstName handle update/ addressBoook: ", editFirstName, addressBook);
+}
 function handleDelete(event) {
   addressBook.deleteContact(event.target.id);
   displayContacts(addressBook);
@@ -103,6 +117,7 @@ function displayDetails(event) {
   let contactDetails = addressBook.findContact(event.target.id);
   let fullName = contactDetails.firstName + " " + contactDetails.lastName;
   let fullAddress = contactDetails.address.street + " " + contactDetails.address.city + " " + contactDetails.address.zip;
+  let updateButton = document.querySelector(".update");
   let delButton = document.querySelector(".delete");
 
   console.log("full Addy ", fullAddress);
@@ -111,6 +126,7 @@ function displayDetails(event) {
   phoneNumSpan.replaceChildren(contactDetails.phoneNumber);
   emailAddressSpan.replaceChildren(contactDetails.emailAddress);
   addressSpan.replaceChildren(fullAddress);
+  updateButton.setAttribute("id", event.target.id);
   delButton.setAttribute("id",event.target.id);
 }
 
@@ -119,4 +135,5 @@ window.addEventListener("load", function(){
   form.addEventListener("submit", handleFormSubmission);
   document.getElementById("contact-div").addEventListener("click", displayDetails);
   document.querySelector(".delete").addEventListener("click", handleDelete);
+  document.querySelector(".update").addEventListener("click", handleUpdate);
 });
