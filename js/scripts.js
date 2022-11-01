@@ -99,10 +99,10 @@ function displayDetails(event) {
   let fullAddress = contactDetails.address.street + " " + contactDetails.address.city + " " + contactDetails.address.zip;
   console.log("full Addy ", fullAddress);
 
-  fullNameSpan.append(fullName);
-  phoneNumSpan.append(contactDetails.phoneNumber);
-  emailAddressSpan.append(contactDetails.emailAddress);
-  addressSpan.append(fullAddress);
+  fullNameSpan.replaceChildren(fullName);
+  phoneNumSpan.replaceChildren(contactDetails.phoneNumber);
+  emailAddressSpan.replaceChildren(contactDetails.emailAddress);
+  addressSpan.replaceChildren(fullAddress);
 
 }
 
