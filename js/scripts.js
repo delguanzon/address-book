@@ -66,9 +66,7 @@ Contact.prototype.fullName = function() {
 //UI
 let addressBook = new AddressBook();
 
-function handleFormSubmission(e){
-  e.preventDefault();
-
+function createContact() {
   const firstName = document.getElementById("first-name").value;
   const lastName = document.getElementById("last-name").value;
   const phoneNumber = document.getElementById("phone-number").value;
@@ -78,10 +76,14 @@ function handleFormSubmission(e){
   const cityAddress = document.getElementById("city").value;
   const ZipCodeAddress = document.getElementById("zip").value;
 
- const address = new Address(streetAddress, cityAddress, ZipCodeAddress);
- const contact = new Contact(firstName, lastName, phoneNumber, address, emailAddress);
-  
-  addressBook.addContact(contact);
+  const address = new Address(streetAddress, cityAddress, ZipCodeAddress);
+  const contact = new Contact(firstName, lastName, phoneNumber, address, emailAddress);
+  return contact;
+}
+
+function handleFormSubmission(e){
+  e.preventDefault();
+  addressBook.addContact(createContact());
   console.log("address bk: ", addressBook);
   displayContacts(addressBook);
 }
