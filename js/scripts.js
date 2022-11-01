@@ -88,7 +88,26 @@ function displayContacts(addressBook) {
 }
 
 
+function displayDetails(event) {
+  let fullNameSpan = document.getElementById("full-name");
+  let phoneNumSpan = document.getElementById("phone-num");
+  let emailAddressSpan = document.getElementById("email");
+  let addressSpan = document.getElementById("full-address");
+
+  let contactDetails = addressBook.findContact(event.target.id);
+  let fullName = contactDetails.firstName + " " + contactDetails.lastName;
+  let fullAddress = contactDetails.address.street + " " + contactDetails.address.city + " " + contactDetails.address.zip;
+  console.log("full Addy ", fullAddress);
+
+  fullNameSpan.append(fullName);
+  phoneNumSpan.append(contactDetails.phoneNumber);
+  emailAddressSpan.append(contactDetails.emailAddress);
+  addressSpan.append(fullAddress);
+
+}
+
 window.addEventListener("load", function(){
   const form = document.querySelector("#form");
-  form.addEventListener("submit", handleFormSubmission);  
+  form.addEventListener("submit", handleFormSubmission);
+  document.getElementById("contact-div").addEventListener("click", displayDetails);
 });
