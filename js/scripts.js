@@ -50,7 +50,6 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
 
-
 //UI
 let addressBook = new AddressBook();
 
@@ -71,9 +70,25 @@ function handleFormSubmission(e){
   
   addressBook.addContact(contact);
   console.log("address bk: ", addressBook);
+  displayContacts(addressBook);
 }
+
+function displayContacts(addressBook) {
+  let contactsDiv = document.getElementById("contact-div");
+  contactsDiv.innerText = "";
+  const ul = document.createElement("ul");
+  Object.keys(addressBook.contacts).forEach( function (key) {
+    const contact = addressBook.findContact(key);
+    const li = document.createElement("li");
+    li.append(contact.fullName);
+    li.setAttribute("id", contact.id);
+    ul.append(li);
+  });  
+  contactsDiv.append(ul);
+}
+
 
 window.addEventListener("load", function(){
   const form = document.querySelector("#form");
-  form.addEventListener("submit", handleFormSubmission);
-})
+  form.addEventListener("submit", handleFormSubmission);  
+});
