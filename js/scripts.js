@@ -73,6 +73,12 @@ function handleFormSubmission(e){
   displayContacts(addressBook);
 }
 
+function handleDelete(event) {
+  addressBook.deleteContact(event.target.id);
+  displayContacts(addressBook);
+  console.log("Delete AB log: ", addressBook);
+}
+
 function displayContacts(addressBook) {
   let contactsDiv = document.getElementById("contact-div");
   contactsDiv.innerText = "";
@@ -97,17 +103,20 @@ function displayDetails(event) {
   let contactDetails = addressBook.findContact(event.target.id);
   let fullName = contactDetails.firstName + " " + contactDetails.lastName;
   let fullAddress = contactDetails.address.street + " " + contactDetails.address.city + " " + contactDetails.address.zip;
+  let delButton = document.querySelector(".delete");
+
   console.log("full Addy ", fullAddress);
 
   fullNameSpan.replaceChildren(fullName);
   phoneNumSpan.replaceChildren(contactDetails.phoneNumber);
   emailAddressSpan.replaceChildren(contactDetails.emailAddress);
   addressSpan.replaceChildren(fullAddress);
-
+  delButton.setAttribute("id",event.target.id);
 }
 
 window.addEventListener("load", function(){
   const form = document.querySelector("#form");
   form.addEventListener("submit", handleFormSubmission);
   document.getElementById("contact-div").addEventListener("click", displayDetails);
+  document.querySelector(".delete").addEventListener("click", handleDelete);
 });
