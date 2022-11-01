@@ -21,11 +21,13 @@ AddressBook.prototype.findContact = function(id) {
   return false;
 };
 
-AddressBook.prototype.updateContact = function(id, editFirstName){
+AddressBook.prototype.updateContact = function(id, editFirstName, editLastName, editPhoneMumber){
   if(this.contacts[id] === undefined) {
     return false;
   } else if ( this.contacts[id] !== undefined) {
     this.contacts[id].firstName = editFirstName; 
+    this.contacts[id].lastName = editLastName;
+    this.contacts[id].phoneNumber = editPhoneMumber;
   }
 }
 
@@ -82,11 +84,15 @@ function handleFormSubmission(e){
 }
 
 function handleUpdate(e){
+  // populate id info
   let editFirstName = document.getElementById("first-name").value;
-  addressBook.updateContact(e.target.id,editFirstName);
+  let editLastName = document.getElementById("last-name").value;
+  let editPhoneMumber = document.getElementById("phone-number").value;
+  addressBook.updateContact(e.target.id,editFirstName, editLastName, editPhoneMumber);
   
-  console.log("editFirstName handle update/ addressBoook: ", editFirstName, addressBook);
+  console.log("editFirstName handle update/ addressBoook: ", editFirstName, editLastName, editPhoneMumber, addressBook);
 }
+
 function handleDelete(event) {
   addressBook.deleteContact(event.target.id);
   displayContacts(addressBook);
@@ -134,6 +140,6 @@ window.addEventListener("load", function(){
   const form = document.querySelector("#form");
   form.addEventListener("submit", handleFormSubmission);
   document.getElementById("contact-div").addEventListener("click", displayDetails);
-  document.querySelector(".delete").addEventListener("click", handleDelete);
   document.querySelector(".update").addEventListener("click", handleUpdate);
+  document.querySelector(".delete").addEventListener("click", handleDelete);
 });
