@@ -21,7 +21,8 @@ AddressBook.prototype.findContact = function(id) {
   return false;
 };
 
-AddressBook.prototype.updateContact = function(id, editFirstName, editLastName, editPhoneMumber){
+AddressBook.prototype.updateContact = function(e, editFirstName, editLastName, editPhoneMumber){
+  let id = e.target.id;
   if(this.contacts[id] === undefined) {
     return false;
   } else if ( this.contacts[id] !== undefined) {
@@ -29,6 +30,8 @@ AddressBook.prototype.updateContact = function(id, editFirstName, editLastName, 
     this.contacts[id].lastName = editLastName;
     this.contacts[id].phoneNumber = editPhoneMumber;
   }
+  displayDetails(e);
+  displayContacts(addressBook);
 }
 
 AddressBook.prototype.deleteContact = function(id) {
@@ -88,7 +91,7 @@ function handleUpdate(e){
   let editFirstName = document.getElementById("first-name").value;
   let editLastName = document.getElementById("last-name").value;
   let editPhoneMumber = document.getElementById("phone-number").value;
-  addressBook.updateContact(e.target.id,editFirstName, editLastName, editPhoneMumber);
+  addressBook.updateContact(e,editFirstName, editLastName, editPhoneMumber);
   
   console.log("editFirstName handle update/ addressBoook: ", editFirstName, editLastName, editPhoneMumber, addressBook);
 }
