@@ -21,14 +21,15 @@ AddressBook.prototype.findContact = function(id) {
   return false;
 };
 
-AddressBook.prototype.updateContact = function(e, editFirstName, editLastName, editPhoneMumber){
+AddressBook.prototype.updateContact = function(e, contact){
   let id = e.target.id;
   if(this.contacts[id] === undefined) {
     return false;
   } else if ( this.contacts[id] !== undefined) {
-    this.contacts[id].firstName = editFirstName; 
-    this.contacts[id].lastName = editLastName;
-    this.contacts[id].phoneNumber = editPhoneMumber;
+    // this.contacts[id].firstName = editFirstName; 
+    // this.contacts[id].lastName = editLastName;
+    // this.contacts[id].phoneNumber = editPhoneMumber;
+    this.contacts[id] = contact;
   }
   displayDetails(e);
   displayContacts(addressBook);
@@ -63,8 +64,7 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
 
-//UI
-let addressBook = new AddressBook();
+//Utility
 
 function createContact() {
   const firstName = document.getElementById("first-name").value;
@@ -81,6 +81,9 @@ function createContact() {
   return contact;
 }
 
+//UI
+let addressBook = new AddressBook();
+
 function handleFormSubmission(e){
   e.preventDefault();
   addressBook.addContact(createContact());
@@ -93,9 +96,12 @@ function handleUpdate(e){
   let editFirstName = document.getElementById("first-name").value;
   let editLastName = document.getElementById("last-name").value;
   let editPhoneMumber = document.getElementById("phone-number").value;
-  addressBook.updateContact(e,editFirstName, editLastName, editPhoneMumber);
   
-  console.log("editFirstName handle update/ addressBoook: ", editFirstName, editLastName, editPhoneMumber, addressBook);
+  let contact = createContact();
+  addressBook.updateContact(e, contact);
+ // addressBook.updateContact(e, editFirstName, editLastName, editPhoneMumber);
+  
+  console.log("editFirstName handle update/ addressBoook: ", e, addressBook); // editFirstName, editLastName, editPhoneMumber, addressBook);
 }
 
 function handleDelete(event) {
