@@ -28,6 +28,15 @@ AddressBook.prototype.deleteContact = function(id) {
   delete this.contacts[id];
   return true;
 };
+function Address(street, city, zip) {
+  this.street = street;
+  this.city = city;
+  this.zip = zip;
+}
+
+Address.prototype.fullAddress = function() {
+  return this.street = this.street + " " + this.city + " " + this.zip;
+};
 
 // Business Logic for Contacts ---------
 function Contact(firstName, lastName, phoneNumber, address, emailAddress) {
@@ -41,12 +50,30 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
 
-function Address(street, city, zip) {
-  this.street = street;
-  this.city = city;
-  this.zip = zip;
+
+//UI
+let addressBook = new AddressBook();
+
+function handleFormSubmission(e){
+  e.preventDefault();
+
+  const firstName = document.getElementById("first-name").value;
+  const lastName = document.getElementById("last-name").value;
+  const phoneNumber = document.getElementById("phone-number").value;
+  const emailAddress = document.getElementById("email-address").value;
+  
+  const streetAddress = document.getElementById("street").value;
+  const cityAddress = document.getElementById("city").value;
+  const ZipCodeAddress = document.getElementById("zip").value;
+
+ const address = new Address(streetAddress, cityAddress, ZipCodeAddress);
+ const contact = new Contact(firstName, lastName, phoneNumber, address, emailAddress);
+  
+  addressBook.addContact(contact);
+  console.log("address bk: ", addressBook);
 }
 
-Address.prototype.fullAddress = function() {
-  return this.street = this.street + " " + this.city + " " + this.zip;
-};
+window.addEventListener("load", function(){
+  const form = document.querySelector("#form");
+  form.addEventListener("submit", handleFormSubmission);
+})
