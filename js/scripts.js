@@ -96,7 +96,7 @@ function handleUpdate(e){
   let editFirstName = document.getElementById("first-name").value;
   let editLastName = document.getElementById("last-name").value;
   let editPhoneMumber = document.getElementById("phone-number").value;
-  
+  e.preventDefault();
   let contact = createContact();
   addressBook.updateContact(e, contact);
  // addressBook.updateContact(e, editFirstName, editLastName, editPhoneMumber);
@@ -126,23 +126,39 @@ function displayContacts(addressBook) {
 
 
 function displayDetails(event) {
-  let fullNameSpan = document.getElementById("full-name");
-  let phoneNumSpan = document.getElementById("phone-num");
-  let emailAddressSpan = document.getElementById("email");
-  let addressSpan = document.getElementById("full-address");
+  // let fullNameSpan = document.getElementById("full-name");
+  // let phoneNumSpan = document.getElementById("phone-num");
+  // let emailAddressSpan = document.getElementById("email");
+  // let addressSpan = document.getElementById("full-address");
+
+  let firstNameField = document.getElementById("first-name");
+  let lastNameField = document.getElementById("last-name");
+  let phoneNumField = document.getElementById("phone-number");
+  let emailAddressField = document.getElementById("email-address");
+  let cityField = document.getElementById("city");
+  let zipField = document.getElementById("zip");
+  let streetField = document.getElementById("street");
 
   let contactDetails = addressBook.findContact(event.target.id);
-  let fullName = contactDetails.firstName + " " + contactDetails.lastName;
-  let fullAddress = contactDetails.address.street + " " + contactDetails.address.city + " " + contactDetails.address.zip;
+  // let fullName = contactDetails.firstName + " " + contactDetails.lastName;
+  // let fullAddress = contactDetails.address.street + " " + contactDetails.address.city + " " + contactDetails.address.zip;
   let updateButton = document.querySelector(".update");
   let delButton = document.querySelector(".delete");
 
-  console.log("full Addy ", fullAddress);
+  firstNameField.value = contactDetails.firstName;
+  lastNameField.value = contactDetails.lastName;
+  phoneNumField.value = contactDetails.phoneNumber;
+  emailAddressField.value = contactDetails.emailAddress;
+  cityField.value = contactDetails.address.city;
+  zipField.value = contactDetails.address.zip;
+  streetField.value = contactDetails.address.street;
 
-  fullNameSpan.replaceChildren(fullName);
-  phoneNumSpan.replaceChildren(contactDetails.phoneNumber);
-  emailAddressSpan.replaceChildren(contactDetails.emailAddress);
-  addressSpan.replaceChildren(fullAddress);
+  //console.log("full Addy ", fullAddress);
+
+  // fullNameSpan.replaceChildren(fullName);
+  // phoneNumSpan.replaceChildren(contactDetails.phoneNumber);
+  // emailAddressSpan.replaceChildren(contactDetails.emailAddress);
+  // addressSpan.replaceChildren(fullAddress);
   updateButton.setAttribute("id", event.target.id);
   delButton.setAttribute("id",event.target.id);
 }
