@@ -80,7 +80,7 @@ function displayContacts(addressBook) {
   Object.keys(addressBook.contacts).forEach( function (key) {
     const contact = addressBook.findContact(key);
     const li = document.createElement("li");
-    li.append(contact.fullName);
+    li.append(contact.fullName());
     li.setAttribute("id", contact.id);
     ul.append(li);
   });  
