@@ -105,6 +105,7 @@ function handleUpdate(e){
 }
 
 function handleDelete(event) {
+  event.preventDefault();
   addressBook.deleteContact(event.target.id);
   displayContacts(addressBook);
   console.log("Delete AB log: ", addressBook);
